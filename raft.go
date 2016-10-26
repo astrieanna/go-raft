@@ -54,14 +54,14 @@ func main() {
 	}()
 
 	go func() {
-		var b []byte;
+		var b []byte
 		_, _, _, _, err := Connection.ReadMsgUDP(b, nil)
 		//func (c *UDPConn) ReadMsgUDP(b, oob []byte) (n, oobn, flags int, addr *UDPAddr, err error)
 		new_msg := RaftRPC.RPCMessage{}
 		err = proto.Unmarshal(b, &new_msg)
-        if err != nil {
-            log.Fatal("unmarshaling error: ", err)
-        }
+		if err != nil {
+			log.Fatal("unmarshaling error: ", err)
+		}
 		inbound <- new_msg
 	}()
 
